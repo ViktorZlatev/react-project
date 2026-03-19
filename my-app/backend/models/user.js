@@ -1,6 +1,6 @@
 const db = require("../db/database");
 
-// Create table
+
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -9,7 +9,7 @@ db.run(`
   )
 `);
 
-// Seed user
+
 db.get("SELECT * FROM users WHERE email = ?", ["test@test.com"], (err, row) => {
   if (!row) {
     db.run(

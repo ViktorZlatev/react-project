@@ -8,7 +8,7 @@ const db = new sqlite3.Database("./db/database.sqlite", (err) => {
   }
 });
 
-// Create table
+
 db.run(`
   CREATE TABLE IF NOT EXISTS items (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,14 +21,14 @@ db.run(`
   }
 });
 
-// Seed items safely
+
 db.get("SELECT COUNT(*) as count FROM items", (err, row) => {
   if (err) {
     console.error("Error counting items:", err.message);
     return;
   }
 
-  // 🔥 IMPORTANT FIX
+  
   if (!row || row.count === 0) {
     console.log("Seeding items...");
 

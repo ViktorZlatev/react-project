@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/database");
 
-// GET all items
+
 router.get("/", (req, res) => {
   db.all("SELECT * FROM items", [], (err, rows) => {
     if (err) return res.status(500).json({ message: "Database error" });
@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// GET item by ID
+
 router.get("/:id", (req, res) => {
   db.get("SELECT * FROM items WHERE id = ?", [req.params.id], (err, row) => {
     if (err) return res.status(500).json({ message: "Database error" });
@@ -19,7 +19,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// DELETE item
+
 router.delete("/:id", (req, res) => {
   db.run("DELETE FROM items WHERE id = ?", [req.params.id], function (err) {
     if (err) return res.status(500).json({ message: "Database error" });

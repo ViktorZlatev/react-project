@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./LoginForm.css";
 
 export default function LoginForm({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -10,7 +11,6 @@ export default function LoginForm({ onLogin }) {
     e.preventDefault();
     setError("");
 
-    // ✅ Better validation
     if (!email.trim()) {
       setError("Email is required");
       return;
@@ -37,7 +37,6 @@ export default function LoginForm({ onLogin }) {
         password,
       });
 
-      // ✅ Correct handling
       if (res.data && res.data.token) {
         onLogin(res.data.token);
       } else {
@@ -53,35 +52,37 @@ export default function LoginForm({ onLogin }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-md w-80"
-      >
-        <h2 className="text-2xl font-semibold mb-6">Login</h2>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Welcome</h2>
+        <p className="login-subtitle">Login to continue</p>
 
-        {error && <p className="mb-4 text-red-500 text-sm">{error}</p>}
+        {error && <div className="login-error">{error}</div>}
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-        />
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label>Email</label>
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-4 p-2 border rounded"
-        />
+          <div className="input-group">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label>Password</label>
+          </div>
 
-        <button className="w-full bg-purple-600 text-white py-2 rounded">
-          Login
-        </button>
-      </form>
+          <button className="login-button">Login</button>
+        </form>
+      </div>
     </div>
   );
 }
